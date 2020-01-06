@@ -4,8 +4,9 @@ namespace Gento\Shipping\Model\Pickup\Executor;
 use Gento\Shipping\Api\ExecutorInterface;
 use Gento\Shipping\Api\PickupRepositoryInterface;
 
-class Delete implements ExecutorInterface
+class Status implements ExecutorInterface
 {
+
     /**
      * @var PickupRepositoryInterface
      */
@@ -27,6 +28,11 @@ class Delete implements ExecutorInterface
      */
     public function execute($id, $params = null)
     {
-        $this->pickupRepository->deleteById($id);
+        if (!is_array($params) || !isset($params['active'])) {
+            throw new \Magento\Framework\Exception\LocalizedException(__('Invalid param "active"'));
+
+        }
+        $status = $params['active'];
+        $this->pickupRepository->changeStatus($id, $status);
     }
 }

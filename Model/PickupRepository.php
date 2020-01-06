@@ -251,4 +251,12 @@ class PickupRepository implements PickupRepositoryInterface
     {
         $this->instances = [];
     }
+    
+    public function changeStatus($pickupId, $status)
+    {
+        $pickup = $this->get($pickupId);
+        $pickup->setActive($status);
+        return $this->save($pickup);
+    }
+
 }

@@ -9,6 +9,7 @@ interface ExecutorInterface
     /**
      * execute
      * @param int $id
+     * @param object $params
      */
-    public function execute($id);
+    public function execute($id, $params = null);
 }

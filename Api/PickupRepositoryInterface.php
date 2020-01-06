@@ -49,4 +49,13 @@ interface PickupRepositoryInterface
      * @return void
      */
     public function clear();
+    
+    /**
+     * @param int $PickupId
+     * @param int $status
+     * @return bool true on success
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function changeStatus($PickupId, $status);
 }

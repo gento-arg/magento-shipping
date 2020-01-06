@@ -1,10 +1,10 @@
 <?php
 namespace Gento\Shipping\Model\Location\Executor;
 
-use Gento\Shipping\Api\LocationRepositoryInterface;
 use Gento\Shipping\Api\ExecutorInterface;
+use Gento\Shipping\Api\LocationRepositoryInterface;
 
-class Delete implements ExecutorInterface
+class Status implements ExecutorInterface
 {
     /**
      * @var LocationRepositoryInterface
@@ -23,10 +23,16 @@ class Delete implements ExecutorInterface
 
     /**
      * @param int $id
+     * @param int $status
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute($id, $params = null)
     {
-        $this->locationRepository->deleteById($id);
+        if (!is_array($params) || !isset($params['active'])) {
+            throw new \Magento\Framework\Exception\LocalizedException(__('Invalid param "active"'));
+
+        }
+        $status = $params['active'];
+        $this->locationRepository->changeStatus($id, $status);
     }
 }
