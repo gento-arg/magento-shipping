@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Gento_Shipping::shipping" title="GENTo Shipping" sortOrder="20">
+                        <resource id="Gento_Shipping::shipping_location" title="Locations"/>
+                        <resource id="Gento_Shipping::shipping_pickup" title="Pickups"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- <add id="Gento_Shipping::shipping"
+             title="GENTo Shipping"
+             module="Gento_Shipping"
+             sortOrder="20"
+             resource="Gento_Shipping::shipping"
+             parent="Magento_Backend::stores" /> -->
+        <add id="Gento_Shipping::shipping_location"
+             title="GENTo Shipping Locations"
+             module="Gento_Shipping"
+             sortOrder="20"
+             action="gento_shipping/location"
+             resource="Gento_Shipping::shipping_location"
+             parent="Magento_Shipping::shipping"
+        />
+        <add id="Gento_Shipping::shipping_pickup"
+             title="GENTo Shipping Pickups"
+             module="Gento_Shipping"
+             sortOrder="30"
+             action="gento_shipping/pickup"
+             resource="Gento_Shipping::shipping_pickup"
+             parent="Magento_Shipping::shipping"
+        />
+    </menu>
+</config>

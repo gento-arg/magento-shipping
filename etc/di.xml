@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Gento\Shipping\Api\LocationRepositoryInterface" type="Gento\Shipping\Model\LocationRepository"/>
+    <preference for="Gento\Shipping\Api\Data\LocationInterface" type="Gento\Shipping\Model\Location"/>
+    <preference for="Gento\Shipping\Api\Data\LocationSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Gento\Shipping\Api\PickupRepositoryInterface" type="Gento\Shipping\Model\PickupRepository"/>
+    <preference for="Gento\Shipping\Api\Data\PickupInterface" type="Gento\Shipping\Model\Pickup"/>
+    <preference for="Gento\Shipping\Api\Data\PickupSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <type name="Magento\Backend\Controller\Adminhtml\Index\GlobalSearch">
+        <arguments>
+            <argument name="searchModules" xsi:type="array">
+                <item name="gento_shipping_pickup" xsi:type="array">
+                    <item name="class" xsi:type="string">Gento\Shipping\Model\Search\Pickup</item>
+                    <item name="acl" xsi:type="string">Gento\Shipping::shipping_pickup</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="gento_shipping_location_listing_data_source" xsi:type="string">GentoShippingLocationGridCollection</item>
+                <item name="gento_shipping_pickup_listing_data_source" xsi:type="string">GentoShippingPickupGridCollection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Gento\Shipping\Model\ResourceModel\Location\Collection">
+        <arguments>
+            <argument name="model" xsi:type="string">Gento\Shipping\Model\Location</argument>
+            <argument name="resourceModel" xsi:type="string">Gento\Shipping\Model\ResourceModel\Location</argument>
+            <argument name="idFieldName" xsi:type="string">location_id</argument>
+            <argument name="eventPrefix" xsi:type="string">gento_shipping_location_collection</argument>
+            <argument name="eventObject" xsi:type="string">location_collection</argument>
+        </arguments>
+    </type>
+    <virtualType name="GentoShippingLocationGridCollection" type="Gento\Shipping\Model\ResourceModel\Location\Collection">
+        <arguments>
+            <argument name="model" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\Document</argument>
+            <argument name="resourceModel" xsi:type="string">Gento\Shipping\Model\ResourceModel\Location</argument>
+            <argument name="idFieldName" xsi:type="string">location_id</argument>
+            <argument name="eventPrefix" xsi:type="string">gento_shipping_location_collection</argument>
+            <argument name="eventObject" xsi:type="string">location_collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Gento\Shipping\Model\ResourceModel\Pickup\Collection">
+        <arguments>
+            <argument name="model" xsi:type="string">Gento\Shipping\Model\Pickup</argument>
+            <argument name="resourceModel" xsi:type="string">Gento\Shipping\Model\ResourceModel\Pickup</argument>
+            <argument name="idFieldName" xsi:type="string">pickup_id</argument>
+            <argument name="eventPrefix" xsi:type="string">gento_shipping_pickup_collection</argument>
+            <argument name="eventObject" xsi:type="string">pickup_collection</argument>
+        </arguments>
+    </type>
+    <virtualType name="GentoShippingPickupGridCollection" type="Gento\Shipping\Model\ResourceModel\Pickup\Collection">
+        <arguments>
+            <argument name="model" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\Document</argument>
+            <argument name="resourceModel" xsi:type="string">Gento\Shipping\Model\ResourceModel\Pickup</argument>
+            <argument name="idFieldName" xsi:type="string">pickup_id</argument>
+            <argument name="eventPrefix" xsi:type="string">gento_shipping_pickup_collection</argument>
+            <argument name="eventObject" xsi:type="string">pickup_collection</argument>
+        </arguments>
+    </virtualType>
+</config>
