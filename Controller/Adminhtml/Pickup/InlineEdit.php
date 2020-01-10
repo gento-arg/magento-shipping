@@ -11,9 +11,6 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Reflection\DataObjectProcessor;
 
-/**
- * Class InlineEdit
- */
 class InlineEdit extends Action
 {
     /**

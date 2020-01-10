@@ -58,5 +58,4 @@ interface LocationRepositoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function changeStatus($LocationId, $status);
-
 }

@@ -89,5 +89,4 @@ class Pickup extends AbstractCarrier implements CarrierInterface
             $this->getStore()
         );
     }
-
 }

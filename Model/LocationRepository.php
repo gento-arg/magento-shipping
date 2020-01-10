@@ -258,5 +258,4 @@ class LocationRepository implements LocationRepositoryInterface
         $location->setActive($status);
         return $this->save($location);
     }
-
 }

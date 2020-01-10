@@ -1,9 +1,9 @@
 <?php
 namespace Gento\Shipping\Controller\Adminhtml\Pickup;
 
-use Gento\Shipping\Api\PickupRepositoryInterface;
 use Gento\Shipping\Api\Data\PickupInterface;
 use Gento\Shipping\Api\Data\PickupInterfaceFactory;
+use Gento\Shipping\Api\PickupRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Api\DataObjectHelper;
@@ -13,7 +13,6 @@ use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Framework\Registry;
 
 /**
- * Class Save
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Save extends Action
@@ -92,7 +91,7 @@ class Save extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
         try {
             if ($id) {
-                $pickup = $this->pickupRepository->get((int)$id);
+                $pickup = $this->pickupRepository->get((int) $id);
             } else {
                 unset($data['pickup_id']);
                 $pickup = $this->pickupFactory->create();
