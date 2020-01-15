@@ -89,4 +89,5 @@ class Location extends AbstractCarrier implements CarrierInterface
             $this->getStore()
         );
     }
+
 }

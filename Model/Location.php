@@ -2,8 +2,8 @@
 namespace Gento\Shipping\Model;
 
 use Gento\Shipping\Api\Data\LocationInterface;
-use Gento\Shipping\Model\ResourceModel\Location as LocationResourceModel;
 use Magento\Framework\Model\AbstractModel;
+use Gento\Shipping\Model\ResourceModel\Location as LocationResourceModel;
 
 /**
  * @method \Gento\Shipping\Model\ResourceModel\Location _getResource()
@@ -12,6 +12,8 @@ use Magento\Framework\Model\AbstractModel;
 class Location extends AbstractModel implements LocationInterface
 {
     /**
+     * Cache tag
+     *
      * @var string
      */
     const CACHE_TAG = 'gento_shipping_location';
@@ -168,8 +170,8 @@ class Location extends AbstractModel implements LocationInterface
     }
 
     /**
-     * @return int[]
-     */
+    * @return int[]
+    */
     public function getStoreId()
     {
         return $this->getData(LocationInterface::STORE_ID);

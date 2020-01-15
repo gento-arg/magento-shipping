@@ -1,12 +1,12 @@
 <?php
 namespace Gento\Shipping\Controller\Adminhtml;
 
-use Gento\Shipping\Api\ExecutorInterface;
 use Gento\Shipping\Ui\Provider\CollectionProviderInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Ui\Component\MassAction\Filter;
+use Gento\Shipping\Api\ExecutorInterface;
 
 abstract class AbstractMassAction extends Action
 {
@@ -39,8 +39,6 @@ abstract class AbstractMassAction extends Action
      */
     protected $executor;
 
-    protected $context;
-
     /**
      * constructor
      * @param Context $context
@@ -62,7 +60,6 @@ abstract class AbstractMassAction extends Action
         $this->executor = $executor;
         $this->successMessage = $successMessage;
         $this->errorMessage = $errorMessage;
-        $this->context = $context;
         parent::__construct($context);
     }
 
@@ -76,10 +73,8 @@ abstract class AbstractMassAction extends Action
         try {
             $collection = $this->filter->getCollection($this->collectionProvider->getCollection());
             $collectionSize = $collection->getSize();
-            $params = $this->context->getRequest()->getParams();
-
             foreach ($collection as $entity) {
-                $this->executor->execute($entity->getId(), $params);
+                $this->executor->execute($entity->getId());
             }
             $this->messageManager->addSuccessMessage(__($this->successMessage, $collectionSize));
         } catch (LocalizedException $e) {

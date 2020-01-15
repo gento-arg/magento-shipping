@@ -6,6 +6,9 @@ use Magento\Framework\Model\AbstractModel as FrameworkAbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 
+/**
+ * @api
+ */
 abstract class AbstractModel extends AbstractDb
 {
     /**

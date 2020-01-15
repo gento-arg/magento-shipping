@@ -1,8 +1,8 @@
 <?php
 namespace Gento\Shipping\Model\Pickup\Executor;
 
-use Gento\Shipping\Api\ExecutorInterface;
 use Gento\Shipping\Api\PickupRepositoryInterface;
+use Gento\Shipping\Api\ExecutorInterface;
 
 class Delete implements ExecutorInterface
 {
@@ -25,7 +25,7 @@ class Delete implements ExecutorInterface
      * @param int $id
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function execute($id, $params = null)
+    public function execute($id)
     {
         $this->pickupRepository->deleteById($id);
     }

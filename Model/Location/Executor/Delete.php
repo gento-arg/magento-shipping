@@ -25,7 +25,7 @@ class Delete implements ExecutorInterface
      * @param int $id
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function execute($id, $params = null)
+    public function execute($id)
     {
         $this->locationRepository->deleteById($id);
     }

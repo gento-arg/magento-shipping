@@ -69,19 +69,19 @@
             </settings>
         </field>
 
-        <field name="description" formElement="textarea">
+        <field name="description" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">pickup</item>
                 </item>
             </argument>
             <settings>
-                <dataType>text</dataType>
-                <label translate="true">Description</label>
-                <dataScope>description</dataScope>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
+                <dataType>text</dataType>
+                <label translate="true">Description</label>
+                <dataScope>description</dataScope>
             </settings>
         </field>
 

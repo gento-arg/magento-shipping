@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Gento\Shipping\Controller\Adminhtml\Location\Index">
         <arguments>
@@ -12,14 +12,6 @@
             <argument name="executor" xsi:type="object">Gento\Shipping\Model\Location\Executor\Delete</argument>
             <argument name="successMessage" xsi:type="string">A total of %1 Locations have been deleted.</argument>
             <argument name="errorMessage" xsi:type="string" translate="true">An error occurred while deleting Locations.</argument>
-        </arguments>
-    </type>
-    <type name="Gento\Shipping\Controller\Adminhtml\Location\MassStatus">
-        <arguments>
-            <argument name="collectionProvider" xsi:type="object">Gento\Shipping\Model\Location\CollectionProvider</argument>
-            <argument name="executor" xsi:type="object">Gento\Shipping\Model\Location\Executor\Status</argument>
-            <argument name="successMessage" xsi:type="string">A total of %1 Locations have been changed.</argument>
-            <argument name="errorMessage" xsi:type="string" translate="true">An error occurred while changing Locations.</argument>
         </arguments>
     </type>
     <type name="Gento\Shipping\Controller\Adminhtml\Location\Delete">
@@ -45,14 +37,6 @@
             <argument name="errorMessage" xsi:type="string" translate="true">An error occurred while deleting Pickups.</argument>
         </arguments>
     </type>
-    <type name="Gento\Shipping\Controller\Adminhtml\Pickup\MassStatus">
-        <arguments>
-            <argument name="collectionProvider" xsi:type="object">Gento\Shipping\Model\Pickup\CollectionProvider</argument>
-            <argument name="executor" xsi:type="object">Gento\Shipping\Model\Pickup\Executor\Status</argument>
-            <argument name="successMessage" xsi:type="string">A total of %1 Pickups have been changed.</argument>
-            <argument name="errorMessage" xsi:type="string" translate="true">An error occurred while changing Pickups.</argument>
-        </arguments>
-    </type>
     <type name="Gento\Shipping\Controller\Adminhtml\Pickup\Delete">
         <arguments>
             <argument name="executor" xsi:type="object">Gento\Shipping\Model\Pickup\Executor\Delete</argument>
@@ -71,5 +55,8 @@
                 <item name="GENTo Shipping Pickups" xsi:type="string">gento_shipping/Pickup/index</item>
             </argument>
         </arguments>
+    </type>
+    <type name="Magento\Config\Model\Config\Structure">
+        <plugin name="gento_shipping_configuration" type="Gento\Shipping\Model\Config\StructurePlugin" />
     </type>
 </config>

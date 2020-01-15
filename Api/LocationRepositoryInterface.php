@@ -49,13 +49,4 @@ interface LocationRepositoryInterface
      * @return void
      */
     public function clear();
-
-    /**
-     * @param int $LocationId
-     * @param int $status
-     * @return bool true on success
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function changeStatus($LocationId, $status);
 }

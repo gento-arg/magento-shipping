@@ -1,13 +1,6 @@
 <?php
 namespace Gento\Shipping\Model;
 
-use Gento\Shipping\Api\Data\PickupInterface;
-use Gento\Shipping\Api\Data\PickupInterfaceFactory;
-use Gento\Shipping\Api\Data\PickupSearchResultInterfaceFactory;
-use Gento\Shipping\Api\PickupRepositoryInterface;
-use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
-use Gento\Shipping\Model\ResourceModel\Pickup\Collection;
-use Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as PickupCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\Search\FilterGroup;
@@ -16,6 +9,13 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\ValidatorException;
+use Gento\Shipping\Api\Data\PickupInterface;
+use Gento\Shipping\Api\Data\PickupInterfaceFactory;
+use Gento\Shipping\Api\Data\PickupSearchResultInterfaceFactory;
+use Gento\Shipping\Api\PickupRepositoryInterface;
+use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
+use Gento\Shipping\Model\ResourceModel\Pickup\Collection;
+use Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as PickupCollectionFactory;
 
 class PickupRepository implements PickupRepositoryInterface
 {
@@ -76,10 +76,10 @@ class PickupRepository implements PickupRepositoryInterface
         DataObjectHelper $dataObjectHelper,
         PickupSearchResultInterfaceFactory $searchResultsFactory
     ) {
-        $this->resource = $resource;
+        $this->resource             = $resource;
         $this->pickupCollectionFactory = $pickupCollectionFactory;
-        $this->pickupInterfaceFactory = $pickupInterfaceFactory;
-        $this->dataObjectHelper = $dataObjectHelper;
+        $this->pickupInterfaceFactory  = $pickupInterfaceFactory;
+        $this->dataObjectHelper     = $dataObjectHelper;
         $this->searchResultsFactory = $searchResultsFactory;
     }
 
@@ -250,12 +250,5 @@ class PickupRepository implements PickupRepositoryInterface
     public function clear()
     {
         $this->instances = [];
-    }
-
-    public function changeStatus($pickupId, $status)
-    {
-        $pickup = $this->get($pickupId);
-        $pickup->setActive($status);
-        return $this->save($pickup);
     }
 }

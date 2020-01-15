@@ -1,4 +1,5 @@
 <?php
+
 namespace Gento\Shipping\Model\Search;
 
 use Magento\Framework\DataObject;

@@ -13,6 +13,7 @@ use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Framework\Registry;
 
 /**
+ * Class Save
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Save extends Action

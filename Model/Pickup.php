@@ -12,10 +12,11 @@ use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
 class Pickup extends AbstractModel implements PickupInterface
 {
     /**
+     * Cache tag
+     *
      * @var string
      */
     const CACHE_TAG = 'gento_shipping_pickup';
-
     /**
      * Cache tag
      *
@@ -169,8 +170,8 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * @return int[]
-     */
+    * @return int[]
+    */
     public function getStoreId()
     {
         return $this->getData(PickupInterface::STORE_ID);

@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Gento\Shipping\Api\LocationRepositoryInterface" type="Gento\Shipping\Model\LocationRepository"/>
-    <preference for="Gento\Shipping\Api\Data\LocationInterface" type="Gento\Shipping\Model\Location"/>
-    <preference for="Gento\Shipping\Api\Data\LocationSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="Gento\Shipping\Api\PickupRepositoryInterface" type="Gento\Shipping\Model\PickupRepository"/>
-    <preference for="Gento\Shipping\Api\Data\PickupInterface" type="Gento\Shipping\Model\Pickup"/>
-    <preference for="Gento\Shipping\Api\Data\PickupSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Gento\Shipping\Api\LocationRepositoryInterface" type="Gento\Shipping\Model\LocationRepository" />
+    <preference for="Gento\Shipping\Api\Data\LocationInterface" type="Gento\Shipping\Model\Location" />
+    <preference for="Gento\Shipping\Api\Data\LocationSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Gento\Shipping\Api\PickupRepositoryInterface" type="Gento\Shipping\Model\PickupRepository" />
+    <preference for="Gento\Shipping\Api\Data\PickupInterface" type="Gento\Shipping\Model\Pickup" />
+    <preference for="Gento\Shipping\Api\Data\PickupSearchResultInterface" type="Magento\Framework\Api\SearchResults" />
     <type name="Magento\Backend\Controller\Adminhtml\Index\GlobalSearch">
         <arguments>
             <argument name="searchModules" xsi:type="array">
@@ -60,4 +60,7 @@
             <argument name="eventObject" xsi:type="string">pickup_collection</argument>
         </arguments>
     </virtualType>
+    <type name="Magento\Sales\Model\Service\OrderService">
+        <plugin name="gento_shipping_setStatus" type="Gento\Shipping\Model\Service\OrderServicePlugin" />
+    </type>
 </config>
