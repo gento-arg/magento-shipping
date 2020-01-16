@@ -47,7 +47,7 @@ class DeleteTest extends TestCase
     /**
      * setup tests
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->context = $this->createMock(Context::class);
         $this->executor = $this->createMock(ExecutorInterface::class);
@@ -70,9 +70,6 @@ class DeleteTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Pickup\Delete::execute()
-     */
     public function testExecute()
     {
         $this->request->method('getParam')->willReturn(1);
@@ -83,9 +80,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Pickup\Delete::execute() with no valid id
-     */
     public function testExecuteNoId()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -96,9 +90,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Pickup\Delete::execute() with no valid id
-     */
     public function testExecuteNoSuchEntityException()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -110,9 +101,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Pickup\Delete::execute() with no valid id
-     */
     public function testExecuteLocalizedException()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -124,9 +112,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Pickup\Delete::execute() with no valid id
-     */
     public function testExecuteException()
     {
         $this->request->method('getParam')->willReturn(null);

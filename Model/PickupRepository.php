@@ -1,6 +1,13 @@
 <?php
 namespace Gento\Shipping\Model;
 
+use Gento\Shipping\Api\Data\PickupInterface;
+use Gento\Shipping\Api\Data\PickupInterfaceFactory;
+use Gento\Shipping\Api\Data\PickupSearchResultInterfaceFactory;
+use Gento\Shipping\Api\PickupRepositoryInterface;
+use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
+use Gento\Shipping\Model\ResourceModel\Pickup\Collection;
+use Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as PickupCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\Search\FilterGroup;
@@ -9,13 +16,6 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\ValidatorException;
-use Gento\Shipping\Api\Data\PickupInterface;
-use Gento\Shipping\Api\Data\PickupInterfaceFactory;
-use Gento\Shipping\Api\Data\PickupSearchResultInterfaceFactory;
-use Gento\Shipping\Api\PickupRepositoryInterface;
-use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
-use Gento\Shipping\Model\ResourceModel\Pickup\Collection;
-use Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as PickupCollectionFactory;
 
 class PickupRepository implements PickupRepositoryInterface
 {
@@ -76,10 +76,10 @@ class PickupRepository implements PickupRepositoryInterface
         DataObjectHelper $dataObjectHelper,
         PickupSearchResultInterfaceFactory $searchResultsFactory
     ) {
-        $this->resource             = $resource;
+        $this->resource = $resource;
         $this->pickupCollectionFactory = $pickupCollectionFactory;
-        $this->pickupInterfaceFactory  = $pickupInterfaceFactory;
-        $this->dataObjectHelper     = $dataObjectHelper;
+        $this->pickupInterfaceFactory = $pickupInterfaceFactory;
+        $this->dataObjectHelper = $dataObjectHelper;
         $this->searchResultsFactory = $searchResultsFactory;
     }
 
@@ -131,6 +131,7 @@ class PickupRepository implements PickupRepositoryInterface
      * @param SearchCriteriaInterface $searchCriteria
      * @return \Gento\Shipping\Api\Data\PickupSearchResultInterface
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @SuppressWarnings(PHPMD.ElseExpression)
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
@@ -153,7 +154,8 @@ class PickupRepository implements PickupRepositoryInterface
                 $field = $sortOrder->getField();
                 $collection->addOrder(
                     $field,
-                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? SortOrder::SORT_ASC : SortOrder::SORT_DESC
+                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ?
+                    SortOrder::SORT_ASC : SortOrder::SORT_DESC
                 );
             }
         } else {
@@ -189,18 +191,18 @@ class PickupRepository implements PickupRepositoryInterface
     public function delete(PickupInterface $pickup)
     {
         /** @var PickupInterface|\Magento\Framework\Model\AbstractModel $pickup */
-        $id = $pickup->getId();
+        $pickupId = $pickup->getId();
         try {
-            unset($this->instances[$id]);
+            unset($this->instances[$pickupId]);
             $this->resource->delete($pickup);
         } catch (ValidatorException $e) {
             throw new CouldNotSaveException(__($e->getMessage()));
         } catch (\Exception $e) {
             throw new StateException(
-                __('Unable to removePickup %1', $id)
+                __('Unable to removePickup %1', $pickupId)
             );
         }
-        unset($this->instances[$id]);
+        unset($this->instances[$pickupId]);
         return true;
     }
 

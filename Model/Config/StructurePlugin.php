@@ -100,8 +100,10 @@ class StructurePlugin
         }
 
         foreach (array_keys($keys) as $key) {
-            $result['carriers/' . $key . '/gento_shipping_status_process'] = ['gento_shipping_status_process'];
-            $result['carriers/' . $key . '/gento_shipping_status_complete'] = ['gento_shipping_status_complete'];
+            $pathProcess = 'gento_shipping_status_process';
+            $pathComplete = 'gento_shipping_status_complete';
+            $result['carriers/' . $key . '/' . $pathProcess] = [$pathProcess];
+            $result['carriers/' . $key . '/' . $pathComplete] = [$pathComplete];
         }
 
         return $result;

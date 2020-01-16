@@ -1,8 +1,8 @@
 <?php
 namespace Gento\Shipping\Controller\Adminhtml\Pickup;
 
-use Gento\Shipping\Api\PickupRepositoryInterface;
 use Gento\Shipping\Api\Data\PickupInterface;
+use Gento\Shipping\Api\PickupRepositoryInterface;
 use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -88,7 +88,7 @@ class InlineEdit extends Action
         foreach (array_keys($postItems) as $pickupId) {
             /** @var \Gento\Shipping\Model\Pickup|\Gento\Shipping\Api\Data\PickupInterface $pickup */
             try {
-                $pickup = $this->pickupRepository->get((int)$pickupId);
+                $pickup = $this->pickupRepository->get((int) $pickupId);
                 $pickupData = $postItems[$pickupId];
                 $this->dataObjectHelper->populateWithArray($pickup, $pickupData, PickupInterface::class);
                 $this->pickupResourceModel->saveAttribute($pickup, array_keys($pickupData));
@@ -109,7 +109,7 @@ class InlineEdit extends Action
 
         return $resultJson->setData([
             'messages' => $messages,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 

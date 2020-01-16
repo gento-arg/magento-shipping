@@ -2,16 +2,16 @@
 namespace Gento\Shipping\Test\Unit\Controller\Adminhtml\Location;
 
 use Gento\Shipping\Api\ExecutorInterface;
+use Gento\Shipping\Controller\Adminhtml\Location\Delete;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\Phrase;
 use PHPUnit\Framework\TestCase;
-use Magento\Backend\App\Action\Context;
-use Gento\Shipping\Controller\Adminhtml\Location\Delete;
 
 class DeleteTest extends TestCase
 {
@@ -47,7 +47,7 @@ class DeleteTest extends TestCase
     /**
      * setup tests
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->context = $this->createMock(Context::class);
         $this->executor = $this->createMock(ExecutorInterface::class);
@@ -70,9 +70,6 @@ class DeleteTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Location\Delete::execute()
-     */
     public function testExecute()
     {
         $this->request->method('getParam')->willReturn(1);
@@ -83,9 +80,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Location\Delete::execute() with no valid id
-     */
     public function testExecuteNoId()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -96,9 +90,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Location\Delete::execute() with no valid id
-     */
     public function testExecuteNoSuchEntityException()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -110,9 +101,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Location\Delete::execute() with no valid id
-     */
     public function testExecuteLocalizedException()
     {
         $this->request->method('getParam')->willReturn(null);
@@ -124,9 +112,6 @@ class DeleteTest extends TestCase
         $this->assertSame($this->result, $this->delete->execute());
     }
 
-    /**
-     * @covers \Gento\Shipping\Controller\Adminhtml\Location\Delete::execute() with no valid id
-     */
     public function testExecuteException()
     {
         $this->request->method('getParam')->willReturn(null);

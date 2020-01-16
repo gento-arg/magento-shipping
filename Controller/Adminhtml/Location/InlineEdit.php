@@ -1,8 +1,8 @@
 <?php
 namespace Gento\Shipping\Controller\Adminhtml\Location;
 
-use Gento\Shipping\Api\LocationRepositoryInterface;
 use Gento\Shipping\Api\Data\LocationInterface;
+use Gento\Shipping\Api\LocationRepositoryInterface;
 use Gento\Shipping\Model\ResourceModel\Location as LocationResourceModel;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -88,9 +88,10 @@ class InlineEdit extends Action
         foreach (array_keys($postItems) as $locationId) {
             /** @var \Gento\Shipping\Model\Location|\Gento\Shipping\Api\Data\LocationInterface $location */
             try {
-                $location = $this->locationRepository->get((int)$locationId);
+                $location = $this->locationRepository->get((int) $locationId);
                 $locationData = $postItems[$locationId];
-                $this->dataObjectHelper->populateWithArray($location, $locationData, LocationInterface::class);
+                $this->dataObjectHelper
+                    ->populateWithArray($location, $locationData, LocationInterface::class);
                 $this->locationResourceModel->saveAttribute($location, array_keys($locationData));
             } catch (LocalizedException $e) {
                 $messages[] = $this->getErrorWithLocationId($location, $e->getMessage());
@@ -101,15 +102,14 @@ class InlineEdit extends Action
             } catch (\Exception $e) {
                 $messages[] = $this->getErrorWithLocationId(
                     $location,
-                    __('Something went wrong while saving the Location.')
-                );
+                    __('Something went wrong while saving the Location.'));
                 $error = true;
             }
         }
 
         return $resultJson->setData([
             'messages' => $messages,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 

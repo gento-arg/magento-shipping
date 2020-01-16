@@ -54,7 +54,7 @@ abstract class AbstractModel extends AbstractDb
                     $this->getConnection()->update(
                         $object->getResource()->getMainTable(),
                         $data,
-                        [$object->getResource()->getIdFieldName() . '= ?' => (int)$object->getId()]
+                        [$object->getResource()->getIdFieldName() . '= ?' => (int) $object->getId()]
                     );
                     $object->addData($data);
                 }
@@ -81,7 +81,7 @@ abstract class AbstractModel extends AbstractDb
                 [
                     $object->getEventObject() => $this,
                     'object' => $object,
-                    'attribute' => $attribute
+                    'attribute' => $attribute,
                 ]
             );
         }
@@ -103,7 +103,7 @@ abstract class AbstractModel extends AbstractDb
                 [
                     $object->getEventObject() => $this,
                     'object' => $object,
-                    'attribute' => $attribute
+                    'attribute' => $attribute,
                 ]
             );
         }

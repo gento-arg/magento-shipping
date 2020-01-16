@@ -1,8 +1,6 @@
 <?php
 namespace Gento\Shipping\Model\ResourceModel;
 
-use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-
 class Pickup extends AbstractModel
 {
     /**
@@ -32,24 +30,24 @@ class Pickup extends AbstractModel
                 'store_table.pickup_id = main_table.pickup_id',
                 []
             )->where('main_table.pickup_id = :pickup_id');
-        return $connection->fetchCol($select, ['pickup_id' => (int)$pickupId]);
+        return $connection->fetchCol($select, ['pickup_id' => (int) $pickupId]);
     }
 
     /**
      * @param \Magento\Framework\Model\AbstractModel | \Gento\Shipping\Model\Pickup $object
-     * @return $this | AbstractDb
+     * @return $this | \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
-        $newStores = (array)$object->getStoreId();
-        $table  = $this->getTable('gento_shipping_pickup_store');
+        $newStores = (array) $object->getStoreId();
+        $table = $this->getTable('gento_shipping_pickup_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
         if ($delete) {
             $where = [
                 'pickup_id = ?' => (int) $object->getId(),
-                'store_id IN (?)' => $delete
+                'store_id IN (?)' => $delete,
             ];
             $this->getConnection()->delete($table, $where);
         }
@@ -58,8 +56,8 @@ class Pickup extends AbstractModel
             $data = [];
             foreach ($insert as $storeId) {
                 $data[] = [
-                    'pickup_id'  => (int) $object->getId(),
-                    'store_id' => (int) $storeId
+                    'pickup_id' => (int) $object->getId(),
+                    'store_id' => (int) $storeId,
                 ];
             }
             $this->getConnection()->insertMultiple($table, $data);

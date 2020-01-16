@@ -1,9 +1,9 @@
 <?php
 namespace Gento\Shipping\Controller\Adminhtml\Location;
 
-use Gento\Shipping\Api\LocationRepositoryInterface;
 use Gento\Shipping\Api\Data\LocationInterface;
 use Gento\Shipping\Api\Data\LocationInterfaceFactory;
+use Gento\Shipping\Api\LocationRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Api\DataObjectHelper;
@@ -92,7 +92,7 @@ class Save extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
         try {
             if ($id) {
-                $location = $this->locationRepository->get((int)$id);
+                $location = $this->locationRepository->get((int) $id);
             } else {
                 unset($data['location_id']);
                 $location = $this->locationFactory->create();

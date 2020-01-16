@@ -25,7 +25,7 @@ class DeleteTest extends TestCase
     /**
      * set up tests
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->url = $this->createMock(UrlInterface::class);
         $this->registry = $this->createMock(Registry::class);

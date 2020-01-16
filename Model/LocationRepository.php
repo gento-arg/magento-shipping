@@ -1,6 +1,13 @@
 <?php
 namespace Gento\Shipping\Model;
 
+use Gento\Shipping\Api\Data\LocationInterface;
+use Gento\Shipping\Api\Data\LocationInterfaceFactory;
+use Gento\Shipping\Api\Data\LocationSearchResultInterfaceFactory;
+use Gento\Shipping\Api\LocationRepositoryInterface;
+use Gento\Shipping\Model\ResourceModel\Location as LocationResourceModel;
+use Gento\Shipping\Model\ResourceModel\Location\Collection;
+use Gento\Shipping\Model\ResourceModel\Location\CollectionFactory as LocationCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\Search\FilterGroup;
@@ -9,13 +16,6 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\StateException;
 use Magento\Framework\Exception\ValidatorException;
-use Gento\Shipping\Api\Data\LocationInterface;
-use Gento\Shipping\Api\Data\LocationInterfaceFactory;
-use Gento\Shipping\Api\Data\LocationSearchResultInterfaceFactory;
-use Gento\Shipping\Api\LocationRepositoryInterface;
-use Gento\Shipping\Model\ResourceModel\Location as LocationResourceModel;
-use Gento\Shipping\Model\ResourceModel\Location\Collection;
-use Gento\Shipping\Model\ResourceModel\Location\CollectionFactory as LocationCollectionFactory;
 
 class LocationRepository implements LocationRepositoryInterface
 {
@@ -76,10 +76,10 @@ class LocationRepository implements LocationRepositoryInterface
         DataObjectHelper $dataObjectHelper,
         LocationSearchResultInterfaceFactory $searchResultsFactory
     ) {
-        $this->resource             = $resource;
+        $this->resource = $resource;
         $this->locationCollectionFactory = $locationCollectionFactory;
-        $this->locationInterfaceFactory  = $locationInterfaceFactory;
-        $this->dataObjectHelper     = $dataObjectHelper;
+        $this->locationInterfaceFactory = $locationInterfaceFactory;
+        $this->dataObjectHelper = $dataObjectHelper;
         $this->searchResultsFactory = $searchResultsFactory;
     }
 
@@ -153,7 +153,8 @@ class LocationRepository implements LocationRepositoryInterface
                 $field = $sortOrder->getField();
                 $collection->addOrder(
                     $field,
-                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? SortOrder::SORT_ASC : SortOrder::SORT_DESC
+                    ($sortOrder->getDirection() == SortOrder::SORT_ASC) ?
+                    SortOrder::SORT_ASC : SortOrder::SORT_DESC
                 );
             }
         } else {

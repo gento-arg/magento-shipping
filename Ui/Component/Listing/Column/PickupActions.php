@@ -54,31 +54,32 @@ class PickupActions extends Column
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as & $item) {
+            $deleteConfirmation = __('Are you sure you want to delete the Pickup "${ $.$data.title }" ?');
+            foreach ($dataSource['data']['items'] as &$item) {
                 if (isset($item['pickup_id'])) {
                     $item[$this->getData('name')] = [
                         'edit' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_EDIT,
                                 [
-                                    'pickup_id' => $item['pickup_id']
+                                    'pickup_id' => $item['pickup_id'],
                                 ]
                             ),
-                            'label' => __('Edit')
+                            'label' => __('Edit'),
                         ],
                         'delete' => [
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'pickup_id' => $item['pickup_id']
+                                    'pickup_id' => $item['pickup_id'],
                                 ]
                             ),
                             'label' => __('Delete'),
                             'confirm' => [
                                 'title' => __('Delete "${ $.$data.title }"'),
-                                'message' => __('Are you sure you want to delete the Pickup "${ $.$data.title }" ?')
-                            ]
-                        ]
+                                'message' => $deleteConfirmation,
+                            ],
+                        ],
                     ];
                 }
             }

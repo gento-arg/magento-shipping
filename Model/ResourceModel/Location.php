@@ -1,8 +1,6 @@
 <?php
 namespace Gento\Shipping\Model\ResourceModel;
 
-use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-
 class Location extends AbstractModel
 {
     /**
@@ -32,24 +30,24 @@ class Location extends AbstractModel
                 'store_table.location_id = main_table.location_id',
                 []
             )->where('main_table.location_id = :location_id');
-        return $connection->fetchCol($select, ['location_id' => (int)$locationId]);
+        return $connection->fetchCol($select, ['location_id' => (int) $locationId]);
     }
 
     /**
      * @param \Magento\Framework\Model\AbstractModel | \Gento\Shipping\Model\Location $object
-     * @return $this | AbstractDb
+     * @return $this | \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $oldStores = $this->lookupStoreIds($object->getId());
-        $newStores = (array)$object->getStoreId();
-        $table  = $this->getTable('gento_shipping_location_store');
+        $newStores = (array) $object->getStoreId();
+        $table = $this->getTable('gento_shipping_location_store');
         $insert = array_diff($newStores, $oldStores);
         $delete = array_diff($oldStores, $newStores);
         if ($delete) {
             $where = [
                 'location_id = ?' => (int) $object->getId(),
-                'store_id IN (?)' => $delete
+                'store_id IN (?)' => $delete,
             ];
             $this->getConnection()->delete($table, $where);
         }
@@ -58,8 +56,8 @@ class Location extends AbstractModel
             $data = [];
             foreach ($insert as $storeId) {
                 $data[] = [
-                    'location_id'  => (int) $object->getId(),
-                    'store_id' => (int) $storeId
+                    'location_id' => (int) $object->getId(),
+                    'store_id' => (int) $storeId,
                 ];
             }
             $this->getConnection()->insertMultiple($table, $data);
