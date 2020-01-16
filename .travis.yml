@@ -6,8 +6,8 @@ env:
     - TEST_SUITE=static
     - TEST_SUITE=unit
 before_script:
-  - composer install
   - composer global config http-basic.repo.magento.com "$COMPOSER_MAGENTO_USER" "$COMPOSER_MAGENTO_PASSWORD"
+  - composer install
 script:
   - mkdir -p build/logs
   - if [ $TEST_SUITE == "static" ]; then vendor/bin/phpcs .; fi
