@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <gento_shipping_carrier_location>
+                <model>Gento\Shipping\Model\Carrier\Location</model>
+            </gento_shipping_carrier_location>
+            <gento_shipping_carrier_pickup>
+                <model>Gento\Shipping\Model\Carrier\Pickup</model>
+            </gento_shipping_carrier_pickup>
+        </carriers>
+    </default>
+</config>

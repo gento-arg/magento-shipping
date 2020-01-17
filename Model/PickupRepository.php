@@ -199,7 +199,7 @@ class PickupRepository implements PickupRepositoryInterface
             throw new CouldNotSaveException(__($e->getMessage()));
         } catch (\Exception $e) {
             throw new StateException(
-                __('Unable to removePickup %1', $pickupId)
+                __('Unable to remove Pickup %1', $pickupId)
             );
         }
         unset($this->instances[$pickupId]);

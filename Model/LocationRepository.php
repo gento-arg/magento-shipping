@@ -198,7 +198,7 @@ class LocationRepository implements LocationRepositoryInterface
             throw new CouldNotSaveException(__($e->getMessage()));
         } catch (\Exception $e) {
             throw new StateException(
-                __('Unable to removeLocation %1', $id)
+                __('Unable to remove Location %1', $id)
             );
         }
         unset($this->instances[$id]);

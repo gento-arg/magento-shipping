@@ -1,10 +1,11 @@
 <?php
+
 namespace Gento\Shipping\Model\Carrier;
 
+use Gento\Shipping\Model\ResourceModel\Location\CollectionFactory as ModelCollectionFactory;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
-use Gento\Shipping\Model\ResourceModel\Location\CollectionFactory as ModelCollectionFactory;
 
 class Location extends AbstractCarrier implements CarrierInterface
 {
@@ -72,6 +73,7 @@ class Location extends AbstractCarrier implements CarrierInterface
             $method->setCarrierTitle($this->getConfigData('title'));
             $method->setMethod($model->getId());
             $method->setMethodTitle($model->getTitle());
+            $method->setMethodDescription($model->getDescription());
             $method->setPrice($model->getPrice());
             $method->setCost($model->getPrice());
 

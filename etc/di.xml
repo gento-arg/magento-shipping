@@ -63,4 +63,7 @@
     <type name="Magento\Sales\Model\Service\OrderService">
         <plugin name="gento_shipping_setStatus" type="Gento\Shipping\Model\Service\OrderServicePlugin" />
     </type>
+    <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="add_description_to_carrier" type="Gento\Shipping\Model\Carrier\DescriptionPlugin" />
+    </type>
 </config>
