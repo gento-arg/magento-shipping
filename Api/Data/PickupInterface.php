@@ -10,7 +10,6 @@ interface PickupInterface
     const TITLE = 'title';
     const DESCRIPTION = 'description';
     const PRICE = 'price';
-    const ZIPCODE = 'zipcode';
     const ACTIVE = 'active';
     /**
      * @var string
@@ -68,16 +67,6 @@ interface PickupInterface
      * @return float
      */
     public function getPrice();
-    /**
-     * @param string $zipcode
-     * @return PickupInterface
-     */
-    public function setZipcode($zipcode);
-
-    /**
-     * @return string
-     */
-    public function getZipcode();
     /**
      * @param int $active
      * @return PickupInterface

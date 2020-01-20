@@ -128,23 +128,6 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * @param string $zipcode
-     * @return PickupInterface
-     */
-    public function setZipcode($zipcode)
-    {
-        return $this->setData(PickupInterface::ZIPCODE, $zipcode);
-    }
-
-    /**
-     * @return string
-     */
-    public function getZipcode()
-    {
-        return $this->getData(PickupInterface::ZIPCODE);
-    }
-
-    /**
      * @param int $active
      * @return PickupInterface
      */

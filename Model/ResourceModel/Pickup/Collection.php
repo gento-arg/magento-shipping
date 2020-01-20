@@ -93,8 +93,8 @@ class Collection extends AbstractCollection
         parent::_renderFiltersBefore();
     }
 
-    public function getFilterZipcode($zipcode)
+    public function getFilterActive()
     {
-        return $this->addFieldToFilter('zipcode', ['eq' => $zipcode]);
+        return $this->addFieldToFilter('active', ['eq' => true]);
     }
 }

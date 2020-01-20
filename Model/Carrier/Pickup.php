@@ -62,9 +62,7 @@ class Pickup extends AbstractCarrier implements CarrierInterface
 
         $modelCollection = $this->modelCollectionFactory->create();
 
-        $receiverZipcode = $request->getDestPostcode();
-
-        foreach ($modelCollection->getFilterZipcode($receiverZipcode) as $model) {
+        foreach ($modelCollection->getFilterActive() as $model) {
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
             $method = $this->_rateMethodFactory->create();

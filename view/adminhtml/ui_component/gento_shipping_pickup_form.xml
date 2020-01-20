@@ -101,22 +101,6 @@
             </settings>
         </field>
 
-        <field name="zipcode" formElement="input">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">pickup</item>
-                </item>
-            </argument>
-            <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-                <dataType>text</dataType>
-                <label translate="true">Zipcode</label>
-                <dataScope>zipcode</dataScope>
-            </settings>
-        </field>
-
         <field name="active" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

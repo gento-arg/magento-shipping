@@ -1,0 +1,66 @@
+{
+    "gento_shipping_location": {
+        "column": {
+            "location_id": true,
+            "title": true,
+            "description": true,
+            "price": true,
+            "zipcode": true,
+            "active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "GENTO_SHIPPING_LOCATION_TITLE_DESCRIPTION_ZIPCODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "gento_shipping_location_store": {
+        "column": {
+            "location_id": true,
+            "store_id": true
+        },
+        "index": {
+            "GENTO_SHIPPING_LOCATION_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4DA9EEF9558C7C9EC2D0FE6C2679A96B": true,
+            "GENTO_SHIPPING_LOCATION_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    },
+    "gento_shipping_pickup": {
+        "column": {
+            "pickup_id": true,
+            "title": true,
+            "description": true,
+            "price": true,
+            "zipcode": true,
+            "active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "GENTO_SHIPPING_PICKUP_TITLE_DESCRIPTION": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "gento_shipping_pickup_store": {
+        "column": {
+            "pickup_id": true,
+            "store_id": true
+        },
+        "index": {
+            "GENTO_SHIPPING_PICKUP_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "GENTO_SHPP_PICKUP_STORE_PICKUP_ID_GENTO_SHPP_PICKUP_PICKUP_ID": true,
+            "GENTO_SHIPPING_PICKUP_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}
