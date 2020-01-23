@@ -3,10 +3,11 @@
     "description": "Gento_Shipping magento 2 extension",
     "require": {
         "php": ">=7.2",
+        "gento-arg/module-core": "*",
+        "magento/framework": "*.*",
         "magento/module-backend": "*",
         "magento/module-config": "*",
-        "magento/module-ui": "*",
-        "magento/framework": "*.*"
+        "magento/module-ui": "*"
     },
     "type": "magento2-module",
     "license": [
@@ -31,5 +32,8 @@
             "type": "composer",
             "url": "https://repo.magento.com/"
         }
-    ]
+    ],
+    "config": {
+        "sort-packages": true
+    }
 }

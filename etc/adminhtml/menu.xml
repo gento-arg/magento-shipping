@@ -2,11 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Gento_Shipping::shipping"
-             title="GENTo Shipping"
+             title="Shipping"
              module="Gento_Shipping"
-             sortOrder="20"
+             sortOrder="10"
              resource="Gento_Shipping::shipping"
-             parent="Magento_Backend::stores" />
+             parent="Gento_Core::general" 
+        />
         <add id="Gento_Shipping::shipping_location"
              title="Locations"
              module="Gento_Shipping"
