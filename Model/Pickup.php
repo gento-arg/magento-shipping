@@ -3,7 +3,12 @@ namespace Gento\Shipping\Model;
 
 use Gento\Shipping\Api\Data\PickupInterface;
 use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
+use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 
 /**
  * @method \Gento\Shipping\Model\ResourceModel\Pickup _getResource()
@@ -39,6 +44,24 @@ class Pickup extends AbstractModel implements PickupInterface
      */
     protected $_eventObject = 'pickup';
 
+    protected $_formattedDates = null;
+
+    /**
+     * @var JsonHelper
+     */
+    protected $jsonHelper;
+
+    public function __construct(
+        Context $context,
+        Registry $registry,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
+        JsonHelper $jsonHelper,
+        array $data = []
+    ) {
+        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->jsonHelper = $jsonHelper;
+    }
     /**
      * Initialize resource model
      *
@@ -179,5 +202,34 @@ class Pickup extends AbstractModel implements PickupInterface
     public function getStoreId()
     {
         return $this->getData(PickupInterface::STORE_ID);
+    }
+
+    public function getFormattedDates()
+    {
+        if ($this->_formattedDates === null) {
+            $this->_formattedDates = '';
+            if ($this->getDates() === null) {
+                return $this->_formattedDates;
+            }
+
+            $dates = $this->jsonHelper->unserialize($this->getDates());
+            foreach ($dates as $day => $dayConfig) {
+                if (!!$dayConfig['enabled']) {
+                    $this->_formattedDates .= sprintf('%s: %s-%s',
+                        __(ucfirst($day)),
+                        $dayConfig['start'],
+                        $dayConfig['end']
+                    ) . PHP_EOL;
+
+                    if (!!$dayConfig['lunch_enabled']) {
+                        $this->_formattedDates .= __('Lunch time: %1-%2',
+                            $dayConfig['start_lunch'],
+                            $dayConfig['end_lunch']
+                        ) . PHP_EOL;
+                    }
+                }
+            }
+        }
+        return $this->_formattedDates;
     }
 }

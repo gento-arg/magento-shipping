@@ -102,4 +102,9 @@ interface PickupInterface
      * @return int[]
      */
     public function getStoreId();
+
+    /**
+     * @return string
+     */
+    public function getFormattedDates();
 }

@@ -63,6 +63,7 @@ class Pickup extends AbstractCarrier implements CarrierInterface
         $modelCollection = $this->modelCollectionFactory->create();
 
         foreach ($modelCollection->getFilterActive() as $model) {
+            $formattedDates = $model->getFormattedDates();
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
             $method = $this->_rateMethodFactory->create();
@@ -70,7 +71,16 @@ class Pickup extends AbstractCarrier implements CarrierInterface
             $method->setCarrierTitle($this->getConfigData('title'));
             $method->setMethod($model->getId());
             $method->setMethodTitle($model->getTitle());
-            $method->setMethodDescription($model->getDescription());
+            $description = $model->getDescription();
+
+            if ($formattedDates) {
+                $description .= '<br>';
+                $description .= __('Working days:');
+                $description .= '<br>';
+                $description .= nl2br($formattedDates);
+            }
+
+            $method->setMethodDescription($description);
             $method->setPrice($model->getPrice());
             $method->setCost($model->getPrice());
 
