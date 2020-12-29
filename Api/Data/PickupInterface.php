@@ -9,12 +9,14 @@ interface PickupInterface
     const PICKUP_ID = 'pickup_id';
     const TITLE = 'title';
     const DESCRIPTION = 'description';
+    const DATES = 'dates';
     const PRICE = 'price';
     const ACTIVE = 'active';
     /**
      * @var string
      */
     const STORE_ID = 'store_id';
+
     /**
      * @param int $id
      * @return PickupInterface
@@ -47,6 +49,18 @@ interface PickupInterface
      * @return string
      */
     public function getTitle();
+
+    /**
+     * @param string $dates
+     * @return PickupInterface
+     */
+    public function setDates($dates);
+
+    /**
+     * @return string
+     */
+    public function getDates();
+
     /**
      * @param string $description
      * @return PickupInterface

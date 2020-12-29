@@ -11,6 +11,7 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Framework\Registry;
+use Magento\Framework\Serialize\Serializer\Json as JsonHelper;
 
 /**
  * Class Save
@@ -23,31 +24,41 @@ class Save extends Action
      * @var PickupInterfaceFactory
      */
     protected $pickupFactory;
+
     /**
      * Data Object Processor
      * @var DataObjectProcessor
      */
     protected $dataObjectProcessor;
+
     /**
      * Data Object Helper
      * @var DataObjectHelper
      */
     protected $dataObjectHelper;
+
     /**
      * Data Persistor
      * @var DataPersistorInterface
      */
     protected $dataPersistor;
+
     /**
      * Core registry
      * @var Registry
      */
     protected $registry;
+
     /**
      * Pickup repository
      * @var PickupRepositoryInterface
      */
     protected $pickupRepository;
+
+    /**
+     * @var JsonHelper
+     */
+    protected $jsonHelper;
 
     /**
      * Save constructor.
@@ -58,6 +69,7 @@ class Save extends Action
      * @param DataObjectHelper $dataObjectHelper
      * @param DataPersistorInterface $dataPersistor
      * @param Registry $registry
+     * @param JsonHelper $jsonHelper
      */
     public function __construct(
         Context $context,
@@ -66,7 +78,8 @@ class Save extends Action
         DataObjectProcessor $dataObjectProcessor,
         DataObjectHelper $dataObjectHelper,
         DataPersistorInterface $dataPersistor,
-        Registry $registry
+        Registry $registry,
+        JsonHelper $jsonHelper
     ) {
         $this->pickupFactory = $pickupFactory;
         $this->pickupRepository = $pickupRepository;
@@ -74,6 +87,7 @@ class Save extends Action
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dataPersistor = $dataPersistor;
         $this->registry = $registry;
+        $this->jsonHelper = $jsonHelper;
         parent::__construct($context);
     }
 
@@ -88,6 +102,13 @@ class Save extends Action
         $pickup = null;
         $postData = $this->getRequest()->getPostValue();
         $data = $postData;
+        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $dates = [];
+        foreach ($days as $day) {
+            $dates[$day] = $data[$day];
+            unset($data[$day]);
+        }
+        $data['dates'] = $this->jsonHelper->serialize($dates);
         $id = !empty($data['pickup_id']) ? $data['pickup_id'] : null;
         $resultRedirect = $this->resultRedirectFactory->create();
         try {

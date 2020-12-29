@@ -1,69 +1,64 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="gento_shipping_location" resource="default" engine="innodb" comment="Location Table">
-        <column xsi:type="smallint" name="location_id" padding="6" unsigned="false" nullable="false" identity="true"  comment="Location ID"/>
-        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Location Title"/>
-        <column xsi:type="text" name="description" nullable="false" comment="Location Description"/>
-        <column xsi:type="decimal" name="price" scale="4" precision="12" nullable="false" comment="Location Price"/>
-        <column xsi:type="varchar" name="zipcode" length="255" nullable="false" comment="Location Zipcode"/>
-        <column xsi:type="smallint" name="active" padding="2" nullable="true" comment="Location Active"/>
-        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Location Created at"/>
-        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Location Updated At"/>
+        <column xsi:type="smallint" name="location_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Location ID" />
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Location Title" />
+        <column xsi:type="text" name="description" nullable="false" comment="Location Description" />
+        <column xsi:type="decimal" name="price" scale="4" precision="12" nullable="false" comment="Location Price" />
+        <column xsi:type="varchar" name="zipcode" length="255" nullable="false" comment="Location Zipcode" />
+        <column xsi:type="smallint" name="active" padding="2" nullable="true" comment="Location Active" />
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Location Created at" />
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Location Updated At" />
         <index referenceId="GENTO_SHIPPING_LOCATION_FULLTEXT" indexType="fulltext">
             <column name="title" />
             <column name="description" />
             <column name="zipcode" />
         </index>
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="location_id"/>
+            <column name="location_id" />
         </constraint>
     </table>
     <table name="gento_shipping_location_store" resource="default" engine="innodb" comment="Location Store Link Table">
-        <column xsi:type="smallint" name="location_id" padding="6" unsigned="false" nullable="false" identity="false"/>
-        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
-                comment="Store ID"/>
+        <column xsi:type="smallint" name="location_id" padding="6" unsigned="false" nullable="false" identity="false" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="location_id"/>
-            <column name="store_id"/>
+            <column name="location_id" />
+            <column name="store_id" />
         </constraint>
-        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_LOCATION_STORE_LOCATION_ID_GENTO_SHIPPING_LOCATION_LOCATION_ID" table="gento_shipping_location_store"
-                    column="location_id" referenceTable="gento_shipping_location" referenceColumn="location_id" onDelete="CASCADE"/>
-        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_LOCATION_STORE_STORE_STORE_ID" table="gento_shipping_location_store"
-                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_LOCATION_STORE_LOCATION_ID_GENTO_SHIPPING_LOCATION_LOCATION_ID" table="gento_shipping_location_store" column="location_id" referenceTable="gento_shipping_location" referenceColumn="location_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_LOCATION_STORE_STORE_STORE_ID" table="gento_shipping_location_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE" />
         <index referenceId="GENTO_SHIPPING_LOCATION_STORE_STORE_ID" indexType="btree">
-            <column name="store_id"/>
+            <column name="store_id" />
         </index>
     </table>
     <table name="gento_shipping_pickup" resource="default" engine="innodb" comment="Pickup Table">
-        <column xsi:type="smallint" name="pickup_id" padding="6" unsigned="false" nullable="false" identity="true"  comment="Pickup ID"/>
-        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Pickup Title"/>
-        <column xsi:type="text" name="description" nullable="false" comment="Pickup Description"/>
-        <column xsi:type="decimal" name="price" scale="4" precision="12" nullable="false" comment="Pickup Price"/>
-        <column xsi:type="smallint" name="active" padding="2" nullable="true" comment="Pickup Active"/>
-        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Pickup Created at"/>
-        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Pickup Updated At"/>
+        <column xsi:type="smallint" name="pickup_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Pickup ID" />
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Pickup Title" />
+        <column xsi:type="text" name="description" nullable="false" comment="Pickup Description" />
+        <column xsi:type="text" name="dates" comment="Pickup Dates" />
+        <column xsi:type="decimal" name="price" scale="4" precision="12" nullable="false" comment="Pickup Price" />
+        <column xsi:type="smallint" name="active" padding="2" nullable="true" comment="Pickup Active" />
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Pickup Created at" />
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Pickup Updated At" />
         <index referenceId="GENTO_SHIPPING_PICKUP_FULLTEXT" indexType="fulltext">
             <column name="title" />
             <column name="description" />
         </index>
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="pickup_id"/>
+            <column name="pickup_id" />
         </constraint>
     </table>
     <table name="gento_shipping_pickup_store" resource="default" engine="innodb" comment="Pickup Store Link Table">
-        <column xsi:type="smallint" name="pickup_id" padding="6" unsigned="false" nullable="false" identity="false"/>
-        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
-                comment="Store ID"/>
+        <column xsi:type="smallint" name="pickup_id" padding="6" unsigned="false" nullable="false" identity="false" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID" />
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="pickup_id"/>
-            <column name="store_id"/>
+            <column name="pickup_id" />
+            <column name="store_id" />
         </constraint>
-        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_PICKUP_STORE_PICKUP_ID_GENTO_SHIPPING_PICKUP_PICKUP_ID" table="gento_shipping_pickup_store"
-                    column="pickup_id" referenceTable="gento_shipping_pickup" referenceColumn="pickup_id" onDelete="CASCADE"/>
-        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_PICKUP_STORE_STORE_STORE_ID" table="gento_shipping_pickup_store"
-                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_PICKUP_STORE_PICKUP_ID_GENTO_SHIPPING_PICKUP_PICKUP_ID" table="gento_shipping_pickup_store" column="pickup_id" referenceTable="gento_shipping_pickup" referenceColumn="pickup_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="GENTO_SHIPPING_PICKUP_STORE_STORE_STORE_ID" table="gento_shipping_pickup_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE" />
         <index referenceId="GENTO_SHIPPING_PICKUP_STORE_STORE_ID" indexType="btree">
-            <column name="store_id"/>
+            <column name="store_id" />
         </index>
     </table>
 </schema>

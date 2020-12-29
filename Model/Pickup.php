@@ -2,8 +2,8 @@
 namespace Gento\Shipping\Model;
 
 use Gento\Shipping\Api\Data\PickupInterface;
-use Magento\Framework\Model\AbstractModel;
 use Gento\Shipping\Model\ResourceModel\Pickup as PickupResourceModel;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * @method \Gento\Shipping\Model\ResourceModel\Pickup _getResource()
@@ -17,24 +17,28 @@ class Pickup extends AbstractModel implements PickupInterface
      * @var string
      */
     const CACHE_TAG = 'gento_shipping_pickup';
+
     /**
      * Cache tag
      *
      * @var string
      */
     protected $_cacheTag = self::CACHE_TAG;
+
     /**
      * Event prefix
      *
      * @var string
      */
     protected $_eventPrefix = 'gento_shipping_pickup';
+
     /**
      * Event object
      *
      * @var string
      */
     protected $_eventObject = 'pickup';
+
     /**
      * Initialize resource model
      *
@@ -91,6 +95,23 @@ class Pickup extends AbstractModel implements PickupInterface
     public function getTitle()
     {
         return $this->getData(PickupInterface::TITLE);
+    }
+
+    /**
+     * @param string $dates
+     * @return PickupInterface
+     */
+    public function setDates($dates)
+    {
+        return $this->setData(PickupInterface::DATES, $dates);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDates()
+    {
+        return $this->getData(PickupInterface::DATES);
     }
 
     /**
@@ -153,8 +174,8 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-    * @return int[]
-    */
+     * @return int[]
+     */
     public function getStoreId()
     {
         return $this->getData(PickupInterface::STORE_ID);

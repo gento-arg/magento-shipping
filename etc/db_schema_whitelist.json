@@ -36,6 +36,7 @@
             "pickup_id": true,
             "title": true,
             "description": true,
+            "dates": true,
             "price": true,
             "zipcode": true,
             "active": true,
