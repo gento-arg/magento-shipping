@@ -65,6 +65,13 @@ class Location extends AbstractCarrier implements CarrierInterface
 
         $receiverZipcode = $request->getDestPostcode();
 
+        $freeShipping = true;
+        foreach ($request->getAllItems() as $item) {
+            if (!$item->getFreeShipping() && !$item->getProduct()->isVirtual()) {
+                $freeShipping = false;
+            }
+        }
+
         foreach ($modelCollection->getFilterZipcode($receiverZipcode) as $model) {
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
@@ -74,8 +81,8 @@ class Location extends AbstractCarrier implements CarrierInterface
             $method->setMethod($model->getId());
             $method->setMethodTitle($model->getTitle());
             $method->setMethodDescription($model->getDescription());
-            $method->setPrice($model->getPrice());
-            $method->setCost($model->getPrice());
+            $method->setPrice($freeShipping ? 0 : $model->getPrice());
+            $method->setCost($freeShipping ? 0 : $model->getPrice());
 
             $rateResult->append($method);
         }
