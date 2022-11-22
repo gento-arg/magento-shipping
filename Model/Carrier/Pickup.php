@@ -1,10 +1,11 @@
 <?php
+
 namespace Gento\Shipping\Model\Carrier;
 
+use Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as ModelCollectionFactory;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
-use \Gento\Shipping\Model\ResourceModel\Pickup\CollectionFactory as ModelCollectionFactory;
 
 class Pickup extends AbstractCarrier implements CarrierInterface
 {
@@ -62,8 +63,16 @@ class Pickup extends AbstractCarrier implements CarrierInterface
 
         $modelCollection = $this->modelCollectionFactory->create();
 
+        $freeShipping = true;
+        foreach ($request->getAllItems() as $item) {
+            if (!$item->getFreeShipping() && !$item->getProduct()->isVirtual()) {
+                $freeShipping = false;
+            }
+        }
+
         foreach ($modelCollection->getFilterActive() as $model) {
             $formattedDates = $model->getFormattedDates();
+
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
             $method = $this->_rateMethodFactory->create();
@@ -81,8 +90,8 @@ class Pickup extends AbstractCarrier implements CarrierInterface
             }
 
             $method->setMethodDescription($description);
-            $method->setPrice($model->getPrice());
-            $method->setCost($model->getPrice());
+            $method->setPrice($freeShipping ? 0 : $model->getPrice());
+            $method->setCost($freeShipping ? 0 : $model->getPrice());
 
             $rateResult->append($method);
         }
