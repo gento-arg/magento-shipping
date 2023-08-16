@@ -62,6 +62,7 @@ class Pickup extends AbstractCarrier implements CarrierInterface
         $rateResult = $this->_rateResultFactory->create();
 
         $modelCollection = $this->modelCollectionFactory->create();
+        $modelCollection->addFieldToFilter('active', ['eq' => 1]);
 
         $freeShipping = true;
         foreach ($request->getAllItems() as $item) {
@@ -72,7 +73,6 @@ class Pickup extends AbstractCarrier implements CarrierInterface
 
         foreach ($modelCollection->getFilterActive() as $model) {
             $formattedDates = $model->getFormattedDates();
-
 
             /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
             $method = $this->_rateMethodFactory->create();

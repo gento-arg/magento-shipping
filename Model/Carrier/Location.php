@@ -62,6 +62,7 @@ class Location extends AbstractCarrier implements CarrierInterface
         $rateResult = $this->_rateResultFactory->create();
 
         $modelCollection = $this->modelCollectionFactory->create();
+        $modelCollection->addFieldToFilter('active', ['eq' => 1]);
 
         $receiverZipcode = $request->getDestPostcode();
 
