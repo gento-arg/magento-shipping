@@ -1,4 +1,5 @@
 <?php
+
 namespace Gento\Shipping\Model;
 
 use Gento\Shipping\Api\Data\PickupInterface;
@@ -54,14 +55,15 @@ class Pickup extends AbstractModel implements PickupInterface
     public function __construct(
         Context $context,
         Registry $registry,
+        JsonHelper $jsonHelper,
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
-        JsonHelper $jsonHelper,
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->jsonHelper = $jsonHelper;
     }
+
     /**
      * Initialize resource model
      *
@@ -70,6 +72,59 @@ class Pickup extends AbstractModel implements PickupInterface
     protected function _construct()
     {
         $this->_init(PickupResourceModel::class);
+    }
+
+    /**
+     * @return int
+     */
+    public function getActive()
+    {
+        return $this->getData(PickupInterface::ACTIVE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDates()
+    {
+        return $this->getData(PickupInterface::DATES);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->getData(PickupInterface::DESCRIPTION);
+    }
+
+    public function getFormattedDates()
+    {
+        if ($this->_formattedDates === null) {
+            $this->_formattedDates = '';
+            if ($this->getDates() === null) {
+                return $this->_formattedDates;
+            }
+
+            $dates = $this->jsonHelper->unserialize($this->getDates());
+            foreach ($dates as $day => $dayConfig) {
+                if (!!$dayConfig['enabled']) {
+                    $this->_formattedDates .= sprintf('%s: %s-%s',
+                            __(ucfirst($day)),
+                            $dayConfig['start'],
+                            $dayConfig['end']
+                        ) . PHP_EOL;
+
+                    if (!!$dayConfig['lunch_enabled']) {
+                        $this->_formattedDates .= __('Lunch time: %1-%2',
+                                $dayConfig['start_lunch'],
+                                $dayConfig['end_lunch']
+                            ) . PHP_EOL;
+                    }
+                }
+            }
+        }
+        return $this->_formattedDates;
     }
 
     /**
@@ -93,23 +148,19 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * set Pickup id
-     *
-     * @param  int $pickupId
-     * @return PickupInterface
+     * @return float
      */
-    public function setPickupId($pickupId)
+    public function getPrice()
     {
-        return $this->setData(PickupInterface::PICKUP_ID, $pickupId);
+        return $this->getData(PickupInterface::PRICE);
     }
 
     /**
-     * @param string $title
-     * @return PickupInterface
+     * @return int[]
      */
-    public function setTitle($title)
+    public function getStoreId()
     {
-        return $this->setData(PickupInterface::TITLE, $title);
+        return $this->getData(PickupInterface::STORE_ID);
     }
 
     /**
@@ -121,58 +172,8 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * @param string $dates
-     * @return PickupInterface
-     */
-    public function setDates($dates)
-    {
-        return $this->setData(PickupInterface::DATES, $dates);
-    }
-
-    /**
-     * @return string
-     */
-    public function getDates()
-    {
-        return $this->getData(PickupInterface::DATES);
-    }
-
-    /**
-     * @param string $description
-     * @return PickupInterface
-     */
-    public function setDescription($description)
-    {
-        return $this->setData(PickupInterface::DESCRIPTION, $description);
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->getData(PickupInterface::DESCRIPTION);
-    }
-
-    /**
-     * @param float $price
-     * @return PickupInterface
-     */
-    public function setPrice($price)
-    {
-        return $this->setData(PickupInterface::PRICE, $price);
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->getData(PickupInterface::PRICE);
-    }
-
-    /**
      * @param int $active
+     *
      * @return PickupInterface
      */
     public function setActive($active)
@@ -181,14 +182,50 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * @return int
+     * @param string $dates
+     *
+     * @return PickupInterface
      */
-    public function getActive()
+    public function setDates($dates)
     {
-        return $this->getData(PickupInterface::ACTIVE);
+        return $this->setData(PickupInterface::DATES, $dates);
     }
+
+    /**
+     * @param string $description
+     *
+     * @return PickupInterface
+     */
+    public function setDescription($description)
+    {
+        return $this->setData(PickupInterface::DESCRIPTION, $description);
+    }
+
+    /**
+     * set Pickup id
+     *
+     * @param int $pickupId
+     *
+     * @return PickupInterface
+     */
+    public function setPickupId($pickupId)
+    {
+        return $this->setData(PickupInterface::PICKUP_ID, $pickupId);
+    }
+
+    /**
+     * @param float $price
+     *
+     * @return PickupInterface
+     */
+    public function setPrice($price)
+    {
+        return $this->setData(PickupInterface::PRICE, $price);
+    }
+
     /**
      * @param array $storeId
+     *
      * @return PickupInterface
      */
     public function setStoreId(array $storeId)
@@ -197,39 +234,12 @@ class Pickup extends AbstractModel implements PickupInterface
     }
 
     /**
-     * @return int[]
+     * @param string $title
+     *
+     * @return PickupInterface
      */
-    public function getStoreId()
+    public function setTitle($title)
     {
-        return $this->getData(PickupInterface::STORE_ID);
-    }
-
-    public function getFormattedDates()
-    {
-        if ($this->_formattedDates === null) {
-            $this->_formattedDates = '';
-            if ($this->getDates() === null) {
-                return $this->_formattedDates;
-            }
-
-            $dates = $this->jsonHelper->unserialize($this->getDates());
-            foreach ($dates as $day => $dayConfig) {
-                if (!!$dayConfig['enabled']) {
-                    $this->_formattedDates .= sprintf('%s: %s-%s',
-                        __(ucfirst($day)),
-                        $dayConfig['start'],
-                        $dayConfig['end']
-                    ) . PHP_EOL;
-
-                    if (!!$dayConfig['lunch_enabled']) {
-                        $this->_formattedDates .= __('Lunch time: %1-%2',
-                            $dayConfig['start_lunch'],
-                            $dayConfig['end_lunch']
-                        ) . PHP_EOL;
-                    }
-                }
-            }
-        }
-        return $this->_formattedDates;
+        return $this->setData(PickupInterface::TITLE, $title);
     }
 }
